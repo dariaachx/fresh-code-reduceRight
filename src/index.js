@@ -24,7 +24,7 @@ const arr = [20, 30]
 
 console.log(MyArray)
 console.dir(MyArray)
-console.log(myArr1.pop())
+// console.log(myArr1.pop())
 console.log(MyArray.isMyArray(arr))
 
 
@@ -94,27 +94,45 @@ function MyArrayProto(){
         }
         return res
     }
+    this.reduceRight = function(callback, startValue){
+        if(this.length === 0 && startValue === undefined) throw new TypeError('Array is empty')
+        if(this.length === 0 && startValue !== undefined) return startValue
+        if(this.length === 1 && startValue === undefined) return this[0]
+    let result
+    if(startValue){
+        result = startValue
+        for(let i = this.length - 1; i >= 0; i--){
+            result = callback(result, this[i], i, this)
+        }
+    }else{
+        result = this[this.length - 1]
+        for(let i = this.length - 2; i >= 0; i--){
+            result = callback(result, this[i], i, this)
+        }
+    }
+    return result
+}
 }
 
 // const MyArrMix = new MyArray(1)
 console.log(myArr.concat([1, 3], true, myArr1))
 
 
+// this functoin
 
-
-const myReduceRight = (arr, callback, startValue) => {
-    let result
-    if(startValue){
-        result = startValue
-        //arr.length -1 -> длина масива на 1 больше чем знач. индекса
-        for(let i = arr.length - 1; i >= 0; i--){
-            result = callback(result, arr[i], i, arr)
-        }
-    }else{
-        result = arr[arr.length - 1]
-        for(let i = arr.length - 2; i >= 0; i--){
-            result = callback(result, arr[i], i, arr)
-        }
-    }
-    return result
-}
+// const myReduceRight = (arr, callback, startValue) => {
+//     let result
+//     if(startValue){
+//         result = startValue
+//         //arr.length -1 -> длина масива на 1 больше чем знач. индекса
+//         for(let i = arr.length - 1; i >= 0; i--){
+//             result = callback(result, arr[i], i, arr)
+//         }
+//     }else{
+//         result = arr[arr.length - 1]
+//         for(let i = arr.length - 2; i >= 0; i--){
+//             result = callback(result, arr[i], i, arr)
+//         }
+//     }
+//     return result
+// }
